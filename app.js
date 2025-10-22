@@ -28,6 +28,7 @@ const loginSection = document.getElementById('login-section');
 const dashboard = document.getElementById('dashboard');
 const loginError = document.getElementById('login-error');
 const userNameLabel = document.getElementById('user-name');
+const fillDemoButton = document.getElementById('fill-demo');
 
 const entryForm = document.getElementById('entry-form');
 const entryType = document.getElementById('entry-type');
@@ -260,6 +261,13 @@ loginForm.addEventListener('input', () => {
   if (loginError.textContent) {
     loginError.textContent = '';
   }
+});
+
+fillDemoButton?.addEventListener('click', () => {
+  usernameInput.value = demoCredentials.username;
+  passwordInput.value = demoCredentials.password;
+  loginError.textContent = '';
+  passwordInput.focus();
 });
 
 entryType.addEventListener('change', (event) => {
