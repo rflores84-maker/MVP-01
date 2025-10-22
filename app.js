@@ -252,8 +252,10 @@ loginForm.addEventListener('submit', (event) => {
     dashboard.classList.remove('hidden');
     userNameLabel.textContent = username;
     loginError.textContent = '';
+    loginForm.reset();
   } else {
     loginError.textContent = 'Usuario o contraseña incorrectos. Intenta nuevamente.';
+    usernameInput.focus();
   }
 });
 
@@ -267,7 +269,11 @@ fillDemoButton?.addEventListener('click', () => {
   usernameInput.value = demoCredentials.username;
   passwordInput.value = demoCredentials.password;
   loginError.textContent = '';
-  passwordInput.focus();
+  if (typeof loginForm.requestSubmit === 'function') {
+    loginForm.requestSubmit();
+  } else {
+    loginForm.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+  }
 });
 
 entryType.addEventListener('change', (event) => {
