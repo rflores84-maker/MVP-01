@@ -22,6 +22,8 @@ const categories = {
 const entries = [];
 
 const loginForm = document.getElementById('login-form');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
 const loginSection = document.getElementById('login-section');
 const dashboard = document.getElementById('dashboard');
 const loginError = document.getElementById('login-error');
@@ -241,15 +243,22 @@ function switchPanel(targetId) {
 
 loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  const username = loginForm.username.value.trim();
-  const password = loginForm.password.value.trim();
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value.trim();
 
   if (username === demoCredentials.username && password === demoCredentials.password) {
     loginSection.classList.add('hidden');
     dashboard.classList.remove('hidden');
     userNameLabel.textContent = username;
+    loginError.textContent = '';
   } else {
     loginError.textContent = 'Usuario o contraseña incorrectos. Intenta nuevamente.';
+  }
+});
+
+loginForm.addEventListener('input', () => {
+  if (loginError.textContent) {
+    loginError.textContent = '';
   }
 });
 
@@ -312,6 +321,10 @@ sidebarButtons.forEach((button) => {
     switchPanel(target);
   });
 });
+
+if (usernameInput) {
+  usernameInput.focus();
+}
 
 setTodayDate();
 populateCategoryOptions(entryType.value);
