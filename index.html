@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MVP Finanzas Personales</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <section class="login" id="login-section">
+        <div class="login-card">
+          <h1>Control Financiero</h1>
+          <p class="login-subtitle">
+            Ingresa tus credenciales para acceder a tu panel financiero.
+          </p>
+          <form id="login-form">
+            <label for="username">Usuario</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              placeholder="Ingresa tu usuario"
+              autocomplete="username"
+              autofocus
+              required
+            />
+            <label for="password">Contraseña</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Ingresa tu contraseña"
+              autocomplete="current-password"
+              required
+            />
+            <p class="login-hint">Usuario demo: <strong>admin</strong> / Contraseña: <strong>1234</strong></p>
+            <div class="login-actions">
+              <button type="submit" class="primary-btn">Entrar</button>
+              <button type="button" id="fill-demo" class="secondary-btn">
+                Entrar con demo
+              </button>
+            </div>
+            <p class="login-error" id="login-error"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="dashboard hidden" id="dashboard">
+        <aside class="sidebar">
+          <div class="user-info">
+            <h2>Bienvenido</h2>
+            <p id="user-name"></p>
+          </div>
+          <nav class="sidebar-nav">
+            <button class="sidebar-btn active" data-target="data-entry">Ingresar datos</button>
+            <button class="sidebar-btn" data-target="visualization">Visualización</button>
+            <button class="sidebar-btn" data-target="configuration">Configuración</button>
+          </nav>
+          <footer class="sidebar-footer">
+            <p>Tu foto financiera al día.</p>
+          </footer>
+        </aside>
+
+        <main class="content">
+          <section class="panel" id="data-entry" data-panel>
+            <header class="panel-header">
+              <h2>Registrar movimiento</h2>
+              <p>Captura tus ingresos, gastos, cuentas y tarjetas en un solo lugar.</p>
+            </header>
+            <form id="entry-form" class="card">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="entry-type">Tipo de movimiento</label>
+                  <select id="entry-type" required>
+                    <option value="ingreso">Ingreso</option>
+                    <option value="gasto">Gasto</option>
+                    <option value="cuenta">Cuenta</option>
+                    <option value="tarjeta1">Tarjeta de crédito 1</option>
+                    <option value="tarjeta2">Tarjeta de crédito 2</option>
+                    <option value="tarjeta3">Tarjeta de crédito 3</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="entry-date">Fecha</label>
+                  <input type="date" id="entry-date" required />
+                </div>
+                <div class="field">
+                  <label for="entry-category">Categoría</label>
+                  <select id="entry-category" required></select>
+                </div>
+                <div class="field">
+                  <label for="entry-description">Descripción</label>
+                  <input
+                    type="text"
+                    id="entry-description"
+                    placeholder="Ej. Pago servicio de luz"
+                    required
+                  />
+                </div>
+                <div class="field">
+                  <label for="entry-amount">Monto</label>
+                  <input
+                    type="number"
+                    id="entry-amount"
+                    min="0"
+                    step="0.01"
+                    placeholder="0.00"
+                    required
+                  />
+                </div>
+              </div>
+              <button type="submit" class="primary-btn">Agregar</button>
+            </form>
+
+            <section class="card" id="recent-entries">
+              <h3>Movimientos recientes</h3>
+              <div class="table-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Fecha</th>
+                      <th>Tipo</th>
+                      <th>Categoría</th>
+                      <th>Descripción</th>
+                      <th class="align-right">Monto</th>
+                    </tr>
+                  </thead>
+                  <tbody id="entry-table-body"></tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+
+          <section class="panel hidden" id="visualization" data-panel>
+            <header class="panel-header">
+              <h2>Visualización por mes</h2>
+              <p>Consulta tus movimientos organizados en periodos mensuales.</p>
+            </header>
+            <div id="visualization-content" class="panel-content"></div>
+          </section>
+
+          <section class="panel hidden" id="configuration" data-panel>
+            <header class="panel-header">
+              <h2>Configuración de categorías</h2>
+              <p>Edita las categorías predeterminadas para cada tipo de movimiento.</p>
+            </header>
+            <div class="card">
+              <div class="config-grid">
+                <div class="field">
+                  <label for="config-type">Tipo</label>
+                  <select id="config-type">
+                    <option value="ingreso">Ingresos</option>
+                    <option value="gasto">Gastos</option>
+                    <option value="cuenta">Cuentas</option>
+                    <option value="tarjeta1">Tarjeta de crédito 1</option>
+                    <option value="tarjeta2">Tarjeta de crédito 2</option>
+                    <option value="tarjeta3">Tarjeta de crédito 3</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="new-category">Nueva categoría</label>
+                  <input
+                    type="text"
+                    id="new-category"
+                    placeholder="Ej. Educación"
+                  />
+                </div>
+                <button id="add-category" class="primary-btn" type="button">
+                  Agregar categoría
+                </button>
+              </div>
+              <div class="category-list">
+                <h3>Categorías actuales</h3>
+                <ul id="category-items"></ul>
+              </div>
+            </div>
+          </section>
+        </main>
+      </section>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
